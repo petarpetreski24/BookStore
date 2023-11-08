@@ -26,13 +26,13 @@ public class AuthorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("isbn") != null){
-            Book book =  bookService.findBookByIsbn(req.getParameter("isbn"));
+            String bookIsbn =  req.getParameter("isbn");
             IWebExchange exchange = JakartaServletWebApplication
                     .buildApplication(getServletContext())
                     .buildExchange(req,resp);
 
             WebContext context = new WebContext(exchange);
-            context.setVariable("book",book);
+            context.setVariable("bookIsbn",bookIsbn);
             context.setVariable("authors",authorService.listAuthors());
 
             this.springTemplateEngine.process(
@@ -50,7 +50,7 @@ public class AuthorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.bookService.addAuthorToBook(Long.parseLong(req.getParameter("authorId")),req.getParameter("book"));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/bookDetails");
-        req.setAttribute("book",this.bookService.findBookByIsbn(req.getParameter("book")));
+        req.setAttribute("bookIsbn",req.getParameter("book"));
         dispatcher.forward(req,resp);
     }
 }

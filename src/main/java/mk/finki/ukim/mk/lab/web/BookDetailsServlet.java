@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import mk.finki.ukim.mk.lab.model.Book;
+import mk.finki.ukim.mk.lab.service.BookService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.web.IWebExchange;
@@ -18,6 +19,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class BookDetailsServlet extends HttpServlet {
     private SpringTemplateEngine springTemplateEngine;
+    private final BookService bookService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect("/listBooks");
@@ -26,12 +28,12 @@ public class BookDetailsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Book book = (Book) req.getAttribute("book");
+        String book = (String) req.getAttribute("bookIsbn");
         IWebExchange exchange = JakartaServletWebApplication
                 .buildApplication(getServletContext())
                 .buildExchange(req,resp);
         WebContext context = new WebContext(exchange);
-        context.setVariable("book",book);
+        context.setVariable("book",bookService.findBookByIsbn(book));
 
         this.springTemplateEngine.process(
                 "bookDetails.html",

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -12,5 +13,5 @@ public class Book {
     String title;
     String genre;
     int year;
-    ArrayList<Author> authors;
+    List<Author> authors;
 }
