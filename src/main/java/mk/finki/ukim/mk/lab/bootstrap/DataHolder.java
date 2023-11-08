@@ -86,5 +86,19 @@ public class DataHolder {
                 1967,
                 new ArrayList<Author>(Collections.singletonList(authors.get(4)))
         ));
+        books.add(new Book(
+                "978-0-451-52478-2",
+                "One Hundred Years of Solitude2",
+                "Magical Realism",
+                1967,
+                new ArrayList<Author>(Collections.singletonList(authors.get(1)))
+        ));
+        books.add(new Book(
+                "978-0-451-52478-3",
+                "One Hundred Years of Solitude3",
+                "Magical Realism",
+                1600,
+                new ArrayList<Author>(Collections.singletonList(authors.get(2)))
+        ));
     }
 }

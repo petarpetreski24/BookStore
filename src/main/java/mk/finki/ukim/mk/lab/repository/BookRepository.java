@@ -6,6 +6,7 @@ import mk.finki.ukim.mk.lab.model.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository {
@@ -19,5 +20,8 @@ public class BookRepository {
         this.findByIsbn(book.getIsbn()).getAuthors().removeIf(x-> x.getId().equals(author.getId()));
         this.findByIsbn(book.getIsbn()).getAuthors().add(author);
         return author;
+    }
+    public List<Book> findByYear(int year){
+        return DataHolder.books.stream().filter(x -> x.getYear() == year).collect(Collectors.toList());
     }
 }

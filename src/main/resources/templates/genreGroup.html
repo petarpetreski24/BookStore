@@ -1,0 +1,27 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Books Homepage - Welcome to My Book Store</title>
+  <style type="text/css">
+    body {
+      width: 800px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Welcome to My Book Store</h1>
+</header>
+<main>
+    <div th:each="genre : ${genres}">
+        <h1 th:text="${genre}"></h1>
+      <hr>
+        <div th:each="book : ${books}">
+            <label th:if="${book.getGenre().equals(genre)}">Title: <span th:text="${book.getTitle()}"></span></label>
+        </div>
+    </div>
+    <hr>
+</main>
+</body>
+</html>

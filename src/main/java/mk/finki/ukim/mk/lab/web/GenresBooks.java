@@ -14,13 +14,14 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/listBooks"})
+@WebServlet(urlPatterns = {"/showGenres"})
 @AllArgsConstructor
-public class BookListServlet extends HttpServlet {
+public class GenresBooks extends HttpServlet {
     private SpringTemplateEngine springTemplateEngine;
-    private BookService bookService;
+    private final BookService bookService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IWebExchange exchange = JakartaServletWebApplication
@@ -28,10 +29,10 @@ public class BookListServlet extends HttpServlet {
                 .buildExchange(req,resp);
 
         WebContext context = new WebContext(exchange);
-        List<Book> books = req.getParameter("year") != null ? bookService.findBookByYear(Integer.parseInt(req.getParameter("year"))) : bookService.listBooks();
-        context.setVariable("books",books);
+        context.setVariable("books",bookService.listBooks());
+        context.setVariable("genres",bookService.listBooks().stream().map(Book::getGenre).collect(Collectors.toSet()).stream().toList());
         this.springTemplateEngine.process(
-                "listBooks.html",
+                "genreGroup.html",
                 context,
                 resp.getWriter()
         );
@@ -39,10 +40,5 @@ public class BookListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.setAttribute("book",bookService.findBookByIsbn(req.getParameter("isbn")));
-//        RequestDispatcher dispatcher = req.getRequestDispatcher("/author");
-//        dispatcher.forward(req,resp);
     }
-
-
 }

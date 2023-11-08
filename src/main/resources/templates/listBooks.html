@@ -14,6 +14,11 @@
   <h1>Welcome to My Book Store</h1>
 </header>
 <main>
+  <h3>Search</h3>
+  <form th:action="@{/listBooks}" th:method="GET">
+    <input type="number" min="0" max="2023" name="year">
+    <input type="submit" value="Search">
+  </form>
   <form th:action="@{/author}" th:method="GET">
     <h2>Choose book:</h2>
     <div th:each="book : ${books}">
@@ -25,6 +30,10 @@
     </div>
     <hr>
     <input type='submit' value='Submit'>
+
+  </form>
+  <form th:action="@{/showGenres}" th:method="GET">
+  <input type="submit" value="Group By Genre">
   </form>
 </main>
 </body>
