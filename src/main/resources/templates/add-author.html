@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${subject}+' Author'"></title>
+</head>
+
+<body>
+<h2 th:text="${subject}+' Author'"></h2>
+<form method="POST" th:action="${subject}=='Edit' ? '/authors/edit/'+${author.getId()} : '/authors/add'">
+  <label for="name">Author Name:</label>
+  <input th:value="${subject}=='Edit' ? ${author.getName()} : ''" type="text" id="name" name="name" required>
+
+  <label for="surname">Author Surname:</label>
+  <input th:value="${subject}=='Edit' ? ${author.getSurname()} : ''" type="text" id="surname" name="surname" required>
+
+  <label for="biography">Biography:</label>
+  <input th:value="${subject}=='Edit' ? ${author.getBiography()} : ''" type="text" id="biography" name="biography" required>
+  <input type="submit" th:value="${subject}">
+</form>
+</body>
+
+</html>

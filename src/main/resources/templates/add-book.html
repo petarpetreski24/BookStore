@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${subject}+' Book'"></title>
+</head>
+
+<body>
+<h2 th:text="${subject}+' Book'"></h2>
+<form method="POST" th:action="${subject}=='Edit' ? '/books/edit/'+${book.getId()} : '/books/add'">
+    <label for="title">Book Name:</label>
+    <input th:value="${subject}=='Edit' ? ${book.getTitle()} : ''" type="text" id="title" name="title" required>
+
+    <label for="genre">Genre:</label>
+    <input th:value="${subject}=='Edit' ? ${book.getGenre()} : ''" type="text" id="genre" name="genre" required>
+
+    <label for="isbn">ISBN Identifier:</label>
+    <input th:value="${subject}=='Edit' ? ${book.getIsbn()} : ''" type="text" id="isbn" name="isbn" required>
+
+    <label for="year">Year:</label>
+    <input th:value="${subject}=='Edit' ? ${book.getYear()} : ''" type="number" id="year" name="year" required>
+
+    <label for="bookstore">Bookstore:</label>
+    <select th:value="${subject}=='Edit' ? ${book.getBookStore().getName()} : ''" id="bookstore" name="bookStoreId" required>
+<!--        <span th:each="bookstore: ${bookstores}">-->
+<!--            -->
+<!--        </span>-->
+        <option th:if="bookstores !=null" th:each="bookstore : ${bookstores}"
+                th:text="${bookstore.getName()}"
+                th:value="${bookstore.getId()}"></option>
+        <!-- Populate this dynamically with options from your system -->
+<!--        <option value="bookstore1">Bookstore 1</option>-->
+<!--        <option value="bookstore2">Bookstore 2</option>-->
+        <!-- Add more options as needed -->
+    </select>
+    <input type="submit" th:value="${subject}">
+</form>
+</body>
+
+</html>
