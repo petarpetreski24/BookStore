@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.web;
+package mk.finki.ukim.mk.lab.web.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/author"})
+@WebServlet(urlPatterns = {"/servlet/author"})
 @AllArgsConstructor
 public class AuthorServlet extends HttpServlet {
     private SpringTemplateEngine springTemplateEngine;

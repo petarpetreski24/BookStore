@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.web;
+package mk.finki.ukim.mk.lab.web.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,14 +15,14 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet
+@WebServlet(urlPatterns = "/servlet/bookDetails")
 @AllArgsConstructor
 public class BookDetailsServlet extends HttpServlet {
     private SpringTemplateEngine springTemplateEngine;
     private final BookService bookService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/listBooks");
+        resp.sendRedirect("/servlet/listBooks");
 
     }
 

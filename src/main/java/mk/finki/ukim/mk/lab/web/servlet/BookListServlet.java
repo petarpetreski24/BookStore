@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.web;
+package mk.finki.ukim.mk.lab.web.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,14 +14,13 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
+import java.util.List;
 
-@WebServlet(urlPatterns = {"/showGenres"})
+@WebServlet(urlPatterns = {"/servlet/listBooks"})
 @AllArgsConstructor
-public class GenresBooks extends HttpServlet {
+public class BookListServlet extends HttpServlet {
     private SpringTemplateEngine springTemplateEngine;
-    private final BookService bookService;
-
+    private BookService bookService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IWebExchange exchange = JakartaServletWebApplication
@@ -29,10 +28,10 @@ public class GenresBooks extends HttpServlet {
                 .buildExchange(req,resp);
 
         WebContext context = new WebContext(exchange);
-        context.setVariable("books",bookService.listBooks());
-        context.setVariable("genres",bookService.listBooks().stream().map(Book::getGenre).collect(Collectors.toSet()).stream().toList());
+        List<Book> books = req.getParameter("year") != null ? bookService.findBookByYear(Integer.parseInt(req.getParameter("year"))) : bookService.listBooks();
+        context.setVariable("books",books);
         this.springTemplateEngine.process(
-                "genreGroup.html",
+                "listBooks.html",
                 context,
                 resp.getWriter()
         );
@@ -40,5 +39,10 @@ public class GenresBooks extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        req.setAttribute("book",bookService.findBookByIsbn(req.getParameter("isbn")));
+//        RequestDispatcher dispatcher = req.getRequestDispatcher("/author");
+//        dispatcher.forward(req,resp);
     }
+
+
 }
