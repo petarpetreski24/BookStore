@@ -36,6 +36,7 @@
       <label for="isbn">Title: <span th:text="${book.getTitle()}"></span></label>
       <p>Genre: <span th:text="${book.getGenre()}"></span></p>
       <p>Year: <span th:text="${book.getYear()}"></span></p>
+      <p>Sales: <span th:text="${book.getSales().getNumberOfCopies()}+'   '"> </span><p>Date:</p><span th:text="${book.getSales().getTimeBought()}+'   '"></span></p>
 
       <a th:href="'/books/edit-form/'+${book.getId()}"><button type="button">Edit</button></a>
       <a th:href="'/books/delete/'+${book.getId()}"><button type="button">Delete</button></a>

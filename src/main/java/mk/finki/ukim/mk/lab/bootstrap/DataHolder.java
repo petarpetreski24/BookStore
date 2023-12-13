@@ -3,9 +3,11 @@ package mk.finki.ukim.mk.lab.bootstrap;
 import jakarta.annotation.PostConstruct;
 import mk.finki.ukim.mk.lab.model.Author;
 import mk.finki.ukim.mk.lab.model.Book;
+import mk.finki.ukim.mk.lab.model.BookSales;
 import mk.finki.ukim.mk.lab.model.BookStore;
 import mk.finki.ukim.mk.lab.repository.AuthorRepository;
 import mk.finki.ukim.mk.lab.repository.BookRepository;
+import mk.finki.ukim.mk.lab.repository.BookSalesRepository;
 import mk.finki.ukim.mk.lab.repository.BookStoreRepository;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +22,13 @@ public class DataHolder {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final BookStoreRepository bookStoreRepository;
+    private final BookSalesRepository bookSalesRepository;
 
-    public DataHolder(BookRepository bookRepository, AuthorRepository authorRepository, BookStoreRepository bookStoreRepository) {
+    public DataHolder(BookRepository bookRepository, AuthorRepository authorRepository, BookStoreRepository bookStoreRepository, BookSalesRepository bookSalesRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.bookStoreRepository = bookStoreRepository;
+        this.bookSalesRepository = bookSalesRepository;
     }
 
     @PostConstruct
@@ -32,6 +36,7 @@ public class DataHolder {
         List<Author> authors = new ArrayList<>();
         List<Book> books = new ArrayList<>();
         List<BookStore> bookStores = new ArrayList<>();
+        List<BookSales> bookSales = new ArrayList<>();
 
         if (authorRepository.count() == 0){
             authors.add(new Author(
@@ -60,6 +65,14 @@ public class DataHolder {
                     "Gabriel García Márquez, a Colombian novelist and Nobel laureate, is known for his magical realism and evocative storytelling. Born in Aracataca, Colombia, his works, such as \"One Hundred Years of Solitude\" and \"Love in the Time of Cholera,\" have made a lasting impact on world literature, particularly in Latin America."
             ));
             authorRepository.saveAll(authors);
+        }
+
+        if (bookSalesRepository.count() == 0){
+            bookSales.add(new BookSales(5));
+            bookSales.add(new BookSales(1));
+            bookSales.add(new BookSales(3));
+            bookSales.add(new BookSales(6));
+            bookSalesRepository.saveAll(bookSales);
         }
 
         if (bookStoreRepository.count() == 0){
@@ -99,7 +112,8 @@ public class DataHolder {
                     "Tragedy",
                     1600,
                     new ArrayList<Author>(Arrays.asList(authors.get(0),authors.get(1))),
-                    bookStores.get(0)
+                    bookStores.get(0),
+                    bookSales.get(0)
             ));
             books.add(new Book(
                     "978-1-250-04657-8",
@@ -107,7 +121,8 @@ public class DataHolder {
                     "Romance",
                     1816,
                     new ArrayList<Author>(Arrays.asList(authors.get(1),authors.get(2))),
-                    bookStores.get(1)
+                    bookStores.get(1),
+                    bookSales.get(1)
             ));
             books.add(new Book(
                     "978-0-553-21361-4",
@@ -115,7 +130,8 @@ public class DataHolder {
                     "Bildungsroman",
                     1861,
                     new ArrayList<Author>(Arrays.asList(authors.get(2),authors.get(3))),
-                    bookStores.get(2)
+                    bookStores.get(2),
+                    bookSales.get(0)
             ));
             books.add(new Book(
                     "978-0-06-112008-4",
@@ -123,7 +139,8 @@ public class DataHolder {
                     "Detective Fiction",
                     1934,
                     new ArrayList<Author>(Arrays.asList(authors.get(3),authors.get(4))),
-                    bookStores.get(3)
+                    bookStores.get(3),
+                    bookSales.get(0)
             ));
             books.add(new Book(
                     "978-0-451-52478-1",
@@ -131,7 +148,8 @@ public class DataHolder {
                     "Magical Realism",
                     1967,
                     new ArrayList<Author>(Collections.singletonList(authors.get(4))),
-                    bookStores.get(4)
+                    bookStores.get(4),
+                    bookSales.get(1)
             ));
             books.add(new Book(
                     "978-0-451-52478-2",
@@ -139,7 +157,8 @@ public class DataHolder {
                     "Magical Realism",
                     1967,
                     new ArrayList<Author>(Collections.singletonList(authors.get(1))),
-                    bookStores.get(0)
+                    bookStores.get(0),
+                    bookSales.get(2)
             ));
             books.add(new Book(
                     "978-0-451-52478-3",
@@ -147,7 +166,8 @@ public class DataHolder {
                     "Magical Realism",
                     1600,
                     new ArrayList<Author>(Collections.singletonList(authors.get(2))),
-                    bookStores.get(3)
+                    bookStores.get(3),
+                    bookSales.get(2)
             ));
             bookRepository.saveAll(books);
         }

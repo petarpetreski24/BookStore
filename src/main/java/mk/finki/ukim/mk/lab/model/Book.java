@@ -34,7 +34,8 @@ public class Book {
     private BookStore bookStore;
     @OneToMany(mappedBy = "book")
     private List<Review> reviews;
-
+    @ManyToOne
+    private BookSales sales;
 
     public Book() {
     }
@@ -46,5 +47,14 @@ public class Book {
         this.year = year;
         this.authors = authors;
         this.bookStore = bookStore;
+    }
+    public Book(String isbn, String title, String genre, int year, List<Author> authors, BookStore bookStore, BookSales bookSales) {
+        this.isbn = isbn;
+        this.title = title;
+        this.genre = genre;
+        this.year = year;
+        this.authors = authors;
+        this.bookStore = bookStore;
+        this.sales = bookSales;
     }
 }
