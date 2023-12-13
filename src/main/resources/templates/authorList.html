@@ -37,7 +37,7 @@
   <h2>Select author:</h2>
   <form th:method="POST" th:action="@{/authors/add-author-book}">
     <div th:each="author : ${authors}" >
-      <input type="radio" name="authorId" th:value="${author.getId()}" th:text="${author.getName()+' '+author.getSurname()}">
+      <input type="radio" name="authorId" th:value="${author.getId()}" th:text="${author.getAuthorFullname().getName()+' '+author.getAuthorFullname().getSurname()}">
       <a th:href="'/authors/edit-form/'+${author.getId()}"><button type="button">Edit</button></a>
       <a th:href="'/authors/delete/'+${author.getId()}"><button type="button">Delete</button></a>
     </div>

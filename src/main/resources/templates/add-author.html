@@ -11,10 +11,10 @@
 <h2 th:text="${subject}+' Author'"></h2>
 <form method="POST" th:action="${subject}=='Edit' ? '/authors/edit/'+${author.getId()} : '/authors/add'">
   <label for="name">Author Name:</label>
-  <input th:value="${subject}=='Edit' ? ${author.getName()} : ''" type="text" id="name" name="name" required>
+  <input th:value="${subject}=='Edit' ? ${author.getAuthorFullname().getName()} : ''" type="text" id="name" name="name" required>
 
   <label for="surname">Author Surname:</label>
-  <input th:value="${subject}=='Edit' ? ${author.getSurname()} : ''" type="text" id="surname" name="surname" required>
+  <input th:value="${subject}=='Edit' ? ${author.getAuthorFullname().getSurname()} : ''" type="text" id="surname" name="surname" required>
 
   <label for="biography">Biography:</label>
   <input th:value="${subject}=='Edit' ? ${author.getBiography()} : ''" type="text" id="biography" name="biography" required>
